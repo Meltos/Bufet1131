@@ -48,7 +48,7 @@ namespace Bufet1131Vorobyov
 
                                 if (dr.GetInt32("menunull") != 1)
                                 {
-                                    if (dr.GetInt32("mstatus") == 1)
+                                    if (dr.GetInt32("mstatus") > 0)
                                     {
                                         menuid = dr.GetInt32("id_menu");
                                         if (menuid != 0)

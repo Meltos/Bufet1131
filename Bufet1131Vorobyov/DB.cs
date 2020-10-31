@@ -14,9 +14,15 @@ namespace Bufet1131Vorobyov
         public DB()
         {
             MySqlConnectionStringBuilder sb = new MySqlConnectionStringBuilder();
+            
+            sb.Server = "localhost";
+            sb.UserID = "root";
+
+            /*
             sb.Server = "192.168.200.13";
-            sb.Database = "bufet1131vorobyov";
             sb.UserID = "student";
+            */
+            sb.Database = "bufet1131vorobyov";
             sb.Password = "student";
             sb.CharacterSet = "UTF8";
             connection = new MySqlConnection(sb.ToString());

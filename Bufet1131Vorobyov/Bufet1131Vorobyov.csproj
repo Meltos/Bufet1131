@@ -103,6 +103,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Accounting.cs" />
+    <Compile Include="AccountingProvider.xaml.cs">
+      <DependentUpon>AccountingProvider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddFood.xaml.cs">
       <DependentUpon>AddFood.xaml</DependentUpon>
     </Compile>
@@ -117,6 +121,10 @@
     <Compile Include="FoodSql.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="ProviderSql.cs" />
+    <Page Include="AccountingProvider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddFood.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
