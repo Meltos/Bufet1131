@@ -22,6 +22,7 @@
                 <MenuItem Header="Добавить поставщика" Click="MenuItem_Click"/>
                 <MenuItem Header="Удалить поставщика" Click="MenuItem_Click_1"/>
             </MenuItem>
+            <MenuItem Header="Учёт поставок" Click="MenuItem_Click_3"/>
         </Menu>
         <DataGrid Grid.Row="1" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider}">
             <DataGrid.Columns>

@@ -73,6 +73,11 @@ namespace Bufet1131Vorobyov
             return result;
         }
 
+        internal ObservableCollection<Provider> GetProvidersFood()
+        {
+            
+        }
+
         internal void EditProvider(Provider selectedProvider)
         {
             string sql = $"update provider set name = @name, phone = @phone, address = @address, mail = @mail where id = '{selectedProvider.ID}'";

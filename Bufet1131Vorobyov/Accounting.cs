@@ -13,5 +13,6 @@ namespace Bufet1131Vorobyov
         public Provider Provider { get; set; }
         public Food Food { get; set; }
         public DateTime DateTime { get; set; }
+        public int Count { get; set; }
     }
 }

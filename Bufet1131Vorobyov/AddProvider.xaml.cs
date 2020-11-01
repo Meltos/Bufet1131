@@ -169,5 +169,11 @@ namespace Bufet1131Vorobyov
             SelectedProvider.Foods.Remove(SelectedFoodProvider);
             ChangeSelectedProvider();
         }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            AccountingProvider accountingProvider = new AccountingProvider(dB);
+            accountingProvider.ShowDialog();
+        }
     }
 }

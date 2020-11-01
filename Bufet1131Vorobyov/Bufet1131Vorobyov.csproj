@@ -107,6 +107,7 @@
     <Compile Include="AccountingProvider.xaml.cs">
       <DependentUpon>AccountingProvider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AccountingSql.cs" />
     <Compile Include="AddFood.xaml.cs">
       <DependentUpon>AddFood.xaml</DependentUpon>
     </Compile>
