@@ -75,7 +75,59 @@ namespace Bufet1131Vorobyov
 
         internal ObservableCollection<Provider> GetProvidersFood()
         {
-            
+            ObservableCollection<Provider> result = new ObservableCollection<Provider>();
+            string sql = "SELECT id_provider, id_food, p.id as idprovider, p.name AS pname, p.phone AS pphone, p.address AS paddress, p.mail AS pmail, p.status AS pstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idproviderfood i JOIN food f ON i.id_food = f.id JOIN provider p ON i.id_provider = p.id";
+            Provider last = null;
+            int foodid;
+            Dictionary<int, Food> foods = new Dictionary<int, Food>();
+            if (dB.OpenConnection())
+            {
+                using (var mc = new MySqlCommand(sql, dB.connection))
+                {
+                    using (var dr = mc.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (dr.GetInt32("pstatus") > 0)
+                            {
+                                if (last != null && last.ID != dr.GetInt32("idprovider"))
+                                    last = null;
+
+                                if (last == null)
+                                {
+                                    last = new Provider();
+                                    last.ID = dr.GetInt32("idprovider");
+                                    last.Name = dr.GetString("pname");
+                                    last.Phone = dr.GetString("pphone");
+                                    last.Address = dr.GetString("paddress");
+                                    last.Mail = dr.GetString("pmail");
+                                    result.Add(last);
+                                }
+
+                                    if (dr.GetInt32("fstatus") == 1)
+                                    {
+                                        foodid = dr.GetInt32("id_food");
+                                        if (foods.ContainsKey(foodid))
+                                        {
+                                            last.Foods.Add(foods[foodid]);
+                                            foods[foodid].Providers.Add(last);
+                                        }
+                                        else
+                                        {
+                                            Food food = new Food { ID = foodid, Name = dr.GetString("fname"), PathIMG = dr.GetString("img"), Count = dr.GetInt32("count"), Description = dr.GetString("description"), Price = dr.GetInt32("price") };
+                                            food.Providers.Add(last);
+                                            foods.Add(foodid, food);
+                                            last.Foods.Add(foods[foodid]);
+                                        }
+                                    }
+                                
+                            }
+                        }
+                    }
+                }
+                dB.CloseConnection();
+            }
+            return result;
         }
 
         internal void EditProvider(Provider selectedProvider)
