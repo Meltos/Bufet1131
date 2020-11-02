@@ -39,7 +39,7 @@
             <Label Content="Поставщик"/>
             <ComboBox ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name"/>
             <Label Content="Блюдо"/>
-            <ComboBox ItemsSource="{Binding ProviderFoods}" SelectedItem="{Binding SelectedFood}" DisplayMemberPath="Name"/>
+            <ComboBox ItemsSource="{Binding ProviderFoods}" SelectedItem="{Binding SelectedFood}" DisplayMemberPath="Name" IsReadOnly="True"/>
             <Label Content="Количество"/>
             <TextBox Text="{Binding Count}"/>
             <Button Content="Высчитать" Click="Button_Click"/>

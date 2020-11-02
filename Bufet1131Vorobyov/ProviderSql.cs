@@ -104,22 +104,22 @@ namespace Bufet1131Vorobyov
                                     result.Add(last);
                                 }
 
-                                    if (dr.GetInt32("fstatus") == 1)
+                                if (dr.GetInt32("fstatus") == 1)
+                                {
+                                    foodid = dr.GetInt32("id_food");
+                                    if (foods.ContainsKey(foodid))
                                     {
-                                        foodid = dr.GetInt32("id_food");
-                                        if (foods.ContainsKey(foodid))
-                                        {
-                                            last.Foods.Add(foods[foodid]);
-                                            foods[foodid].Providers.Add(last);
-                                        }
-                                        else
-                                        {
-                                            Food food = new Food { ID = foodid, Name = dr.GetString("fname"), PathIMG = dr.GetString("img"), Count = dr.GetInt32("count"), Description = dr.GetString("description"), Price = dr.GetInt32("price") };
-                                            food.Providers.Add(last);
-                                            foods.Add(foodid, food);
-                                            last.Foods.Add(foods[foodid]);
-                                        }
+                                        last.Foods.Add(foods[foodid]);
+                                        foods[foodid].Providers.Add(last);
                                     }
+                                    else
+                                    {
+                                        Food food = new Food { ID = foodid, Name = dr.GetString("fname"), PathIMG = dr.GetString("img"), Count = dr.GetInt32("count"), Description = dr.GetString("description"), Price = dr.GetInt32("price") };
+                                        food.Providers.Add(last);
+                                        foods.Add(foodid, food);
+                                        last.Foods.Add(foods[foodid]);
+                                    }
+                                }
                                 
                             }
                         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,12 +8,50 @@ using System.Threading.Tasks;
 namespace Bufet1131Vorobyov
 {
     [Serializable]
-    public class Accounting
+    public class Accounting : INotifyPropertyChanged
     {
+        private Provider provider;
+        private Food food;
+        private DateTime dateTime;
+        private int count;
+
         public int ID { get; set; }
-        public Provider Provider { get; set; }
-        public Food Food { get; set; }
-        public DateTime DateTime { get; set; }
-        public int Count { get; set; }
+        public Provider Provider
+        {
+            get => provider;
+            set
+            {
+                provider = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Provider"));
+            }
+        }
+        public Food Food
+        {
+            get => food;
+            set
+            {
+                food = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Food"));
+            }
+        }
+        public DateTime DateTime
+        {
+            get => dateTime;
+            set
+            {
+                dateTime = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateTime"));
+            }
+        }
+        public int Count
+        {
+            get => count; set
+            {
+                count = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Count"));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

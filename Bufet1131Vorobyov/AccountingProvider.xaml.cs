@@ -36,7 +36,15 @@ namespace Bufet1131Vorobyov
             get => selectedAccounting;
             set
             {
-                selectedAccounting = value;
+                if (value != null)
+                {
+                    selectedAccounting = value;
+                    SelectedProvider = value.Provider;
+                    SelectedFood = value.Food;
+                    DateTimeAcc = value.DateTime;
+                    CountAcc = value.Count;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedAccounting"));
+                }
             }
         }
         public DateTime DateTimeAcc
@@ -74,6 +82,7 @@ namespace Bufet1131Vorobyov
             set
             {
                 selectedProvider = value;
+                ProviderFoods = value.Foods;
                 SelectedAccounting.Provider = value;
                 EditAccounting(SelectedAccounting);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedProvider"));
