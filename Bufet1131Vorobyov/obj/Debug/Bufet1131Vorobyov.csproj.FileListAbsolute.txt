@@ -130,3 +130,5 @@ C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet
 C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\Bufet1131Vorobyov.pdb
 C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\AccountingProvider.g.cs
 C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\AccountingProvider.baml
+C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\AddNewAccounting.g.cs
+C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\AddNewAccounting.baml

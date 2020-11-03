@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bufet1131Vorobyov"
         mc:Ignorable="d"
-        Title="Учёт поставок блюд" Height="450" Width="800">
+        Title="Учёт поставок блюд" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,28 +21,28 @@
                 <MenuItem Header="Удалить поставку" Click="MenuItem_Click_1"/>
             </MenuItem>
         </Menu>
-        <DataGrid Grid.Row="1">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Дата" IsReadOnly="True"
-                                    Binding="{Binding Date}"/>
+                                    Binding="{Binding DateTime}"/>
                 <DataGridTextColumn Header="Поставщик" IsReadOnly="True"
-                                    Binding="{Binding ProviderName}"/>
+                                    Binding="{Binding Provider.Name}"/>
                 <DataGridTextColumn Header="Блюдо" IsReadOnly="True"
-                                    Binding="{Binding FoodName}"/>
+                                    Binding="{Binding Food.Name}"/>
                 <DataGridTextColumn Header="Количество" IsReadOnly="True"
                                     Binding="{Binding Count}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedAccounting}">
             <Label Content="Дата"/>
-            <DatePicker SelectedDate="{Binding Date}"/>
+            <DatePicker SelectedDate="{Binding DateTimeAcc}"/>
             <Label Content="Поставщик"/>
             <ComboBox ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name"/>
-            <Label Content="Блюдо"/>
-            <ComboBox ItemsSource="{Binding ProviderFoods}" SelectedItem="{Binding SelectedFood}" DisplayMemberPath="Name" IsReadOnly="True"/>
+            <Label x:Name="label1" Content="Блюдо" Visibility="Collapsed"/>
+            <ComboBox x:Name="comboBox1" ItemsSource="{Binding ProviderFoods}" SelectedItem="{Binding SelectedFood}" DisplayMemberPath="Name" Visibility="Collapsed"/>
             <Label Content="Количество"/>
-            <TextBox Text="{Binding Count}"/>
-            <Button Content="Высчитать" Click="Button_Click"/>
+            <TextBox Text="{Binding CountAcc}"/>
+            <Button Content="Высчитать" Click="Button_Click" Margin="50 20"/>
         </StackPanel>
     </Grid>
 </Window>

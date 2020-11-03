@@ -82,10 +82,20 @@ namespace Bufet1131Vorobyov
             set
             {
                 selectedProvider = value;
-                ProviderFoods = value.Foods;
-                SelectedAccounting.Provider = value;
-                EditAccounting(SelectedAccounting);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedProvider"));
+                if (value.Foods.Count <= 0)
+                {
+                    label1.Visibility = Visibility.Collapsed;
+                    comboBox1.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    label1.Visibility = Visibility.Visible;
+                    comboBox1.Visibility = Visibility.Visible;
+                    ProviderFoods = value.Foods;
+                    SelectedAccounting.Provider = value;
+                    EditAccounting(SelectedAccounting);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedProvider"));
+                }
             }
         }
         public Food SelectedFood
@@ -113,12 +123,30 @@ namespace Bufet1131Vorobyov
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            AddNewAccounting addNewAccounting = new AddNewAccounting(dB);
+            addNewAccounting.ShowDialog();
+            if (addNewAccounting.NewAccounting == null)
+                return;
+            AccountingSql accountingSql = new AccountingSql(dB);
+            int id = accountingSql.AddNewAccounting(addNewAccounting.NewAccounting);
+            addNewAccounting.NewAccounting.ID = id;
+            Accountings.Add(addNewAccounting.NewAccounting);
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
-
+            if (SelectedAccounting == null)
+                return;
+            MessageBoxResult result = MessageBox.Show("Вы точно хотите удалить поставку?",
+                                         "Предупреждение",
+                                         MessageBoxButton.YesNo,
+                                         MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                AccountingSql accountingSql = new AccountingSql(dB);
+                accountingSql.RemoveAccounting(SelectedAccounting);
+                Accountings.Remove(SelectedAccounting);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

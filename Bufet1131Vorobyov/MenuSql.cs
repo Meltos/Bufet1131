@@ -20,7 +20,7 @@ namespace Bufet1131Vorobyov
         public ObservableCollection<Menu> GetData()
         {
             ObservableCollection<Menu> result = new ObservableCollection<Menu>();
-            string sql = "SELECT id_menu, id_food, ISNULL(id_food) as foodnull, m.id as idmenu, m.name AS mname, m.status AS mstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idmenufood i JOIN food f ON i.id_food = f.id  RIGHT  JOIN menu m ON i.id_menu = m.id";
+            string sql = "SELECT id_menu, id_food, ISNULL(id_food) as foodnull, m.id as idmenu, m.name AS mname, m.status AS mstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idmenufood i JOIN food f ON i.id_food = f.id RIGHT JOIN menu m ON i.id_menu = m.id";
             Menu last = null;
             int foodid;
             Dictionary<int, Food> foods = new Dictionary<int, Food>();
