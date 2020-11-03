@@ -39,10 +39,26 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedAccounting = value;
-                    SelectedProvider = value.Provider;
-                    SelectedFood = value.Food;
+                    foreach (var provider in Providers)
+                    {
+                        if (provider.ID == value.Provider.ID)
+                        {
+                            SelectedProvider = provider;
+                        }
+                    }
+                    if (value.Food != null)
+                    {
+                        foreach (var food in ProviderFoods)
+                        {
+                            if (food.ID == value.Food.ID)
+                            {
+                                SelectedFood = food;
+                            }
+                        }
+                    }
                     DateTimeAcc = value.DateTime;
                     CountAcc = value.Count;
+                    
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedAccounting"));
                 }
             }
@@ -95,6 +111,7 @@ namespace Bufet1131Vorobyov
                     SelectedAccounting.Provider = value;
                     EditAccounting(SelectedAccounting);
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedProvider"));
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ProviderFoods"));
                 }
             }
         }

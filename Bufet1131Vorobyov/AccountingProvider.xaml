@@ -33,7 +33,7 @@
                                     Binding="{Binding Count}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedAccounting}">
+        <StackPanel x:Name="stack" Grid.Row="1" Grid.Column="1">
             <Label Content="Дата"/>
             <DatePicker SelectedDate="{Binding DateTimeAcc}"/>
             <Label Content="Поставщик"/>
