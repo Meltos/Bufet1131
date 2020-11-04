@@ -26,7 +26,9 @@ namespace Bufet1131Vorobyov
             string sql = "SELECT ISNULL(id_menu) as menunull,id_menu, id_food, m.id as idmenu, m.name as mname, m.status as mstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idmenufood i JOIN menu m ON i.id_menu = m.id right JOIN food f ON i.id_food = f.id";
             Food last = null;
             int menuid;
+            int providerid;
             Dictionary<int, Menu> menus = new Dictionary<int, Menu>();
+            Dictionary<int, Provider> providers = new Dictionary<int, Provider>();
             if (dB.OpenConnection())
             {
                 using (var mc = new MySqlCommand(sql, dB.connection))

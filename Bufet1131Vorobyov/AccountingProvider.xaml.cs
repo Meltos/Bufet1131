@@ -46,17 +46,14 @@ namespace Bufet1131Vorobyov
                             SelectedProvider = provider;
                         }
                     }
-                    if (value.Food != null)
+                    foreach (var food in ProviderFoods)
                     {
-                        foreach (var food in ProviderFoods)
+                        if (food.ID == value.Food.ID)
                         {
-                            if (food.ID == value.Food.ID)
-                            {
-                                SelectedFood = food;
-                            }
+                            SelectedFood = food;
                         }
                     }
-                    DateTimeAcc = value.DateTime;
+                    DateTimeAcc = value.DateTime.Date;
                     CountAcc = value.Count;
                     
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedAccounting"));
@@ -68,8 +65,8 @@ namespace Bufet1131Vorobyov
             get => dateTimeAcc;
             set
             {
-                dateTimeAcc = value;
-                SelectedAccounting.DateTime = value;
+                dateTimeAcc = value.Date;
+                SelectedAccounting.DateTime = value.Date;
                 EditAccounting(SelectedAccounting);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateTimeAcc"));
             }
@@ -120,10 +117,14 @@ namespace Bufet1131Vorobyov
             get => selectedFood;
             set
             {
-                selectedFood = value;
-                SelectedAccounting.Food = value;
-                EditAccounting(SelectedAccounting);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedFood"));
+                if (value != null)
+                {
+                    selectedFood = value;
+                    SelectedAccounting.Food = value;
+                    EditAccounting(SelectedAccounting);
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedFood"));
+                }
+                
             }
         }
 

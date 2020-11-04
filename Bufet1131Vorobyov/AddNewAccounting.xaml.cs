@@ -29,6 +29,7 @@ namespace Bufet1131Vorobyov
         public Accounting NewAccounting { get; set; }
         public ObservableCollection<Provider> Providers { get; set; }
         public ObservableCollection<Food> ProviderFoodsAcc { get; set; }
+        public ObservableCollection<Food> Foods { get; set; }
         public Provider SelectedProvider
         {
             get => selectedProvider;
@@ -58,6 +59,7 @@ namespace Bufet1131Vorobyov
         {
             InitializeComponent();
             Providers = new ProviderSql(dB).GetProvidersFood();
+            Foods = new FoodSql(dB).GetData();
             DateTimeNewAcc = DateTime.Now;
             DataContext = this;
             this.dB = dB;
@@ -84,6 +86,15 @@ namespace Bufet1131Vorobyov
                 NewAccounting.Provider = SelectedProvider;
                 NewAccounting.Food = SelectedProvidersFood;
                 NewAccounting.Count = CountNewAcc;
+                foreach (var food in Foods)
+                {
+                    if (food.ID == NewAccounting.Food.ID)
+                    {
+                        FoodSql foodSql = new FoodSql(dB);
+                        food.Count += NewAccounting.Count;
+                        foodSql.EditFood(food);
+                    }
+                }
                 Close();
             }
         }

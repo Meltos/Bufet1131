@@ -39,7 +39,7 @@ namespace Bufet1131Vorobyov
             get => dateTime;
             set
             {
-                dateTime = value;
+                dateTime = value.Date;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateTime"));
             }
         }

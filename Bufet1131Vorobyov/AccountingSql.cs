@@ -60,8 +60,6 @@ namespace Bufet1131Vorobyov
 
         internal void EditAccounting(Accounting selectedAccounting)
         {
-            if (selectedAccounting.Food == null)
-                return;
             string sql = $"update accountingprovider set count = @count, date = @date, id_provider = @id_provider, id_food = @id_food where id = '{selectedAccounting.ID}'";
             if (dB.OpenConnection())
             {

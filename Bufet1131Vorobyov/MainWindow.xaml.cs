@@ -32,9 +32,12 @@ namespace Bufet1131Vorobyov
             get => selectedMenu;
             set
             {
-                selectedMenu = value;
-                Foods = value.Foods;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
+                if (value != null)
+                {
+                    selectedMenu = value;
+                    Foods = value.Foods;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
+                }
             }
         }
 
@@ -54,6 +57,8 @@ namespace Bufet1131Vorobyov
             addMenu.ShowDialog();
             Menus = new MenuSql(dB).GetPublicMenu();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menus"));
+            Foods = null;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -62,12 +67,18 @@ namespace Bufet1131Vorobyov
             addFood.ShowDialog();
             Menus = new MenuSql(dB).GetPublicMenu();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menus"));
+            Foods = null;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
         }
 
         private void MenuItem_Click_2(object sender, RoutedEventArgs e)
         {
             AddProvider addProvider = new AddProvider(dB);
             addProvider.ShowDialog();
+            Menus = new MenuSql(dB).GetPublicMenu();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menus"));
+            Foods = null;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
         }
     }
 }
