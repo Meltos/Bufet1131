@@ -7,14 +7,43 @@ using System.Threading.Tasks;
 
 namespace Bufet1131Vorobyov
 {
-    [Serializable]
-    public class Accounting : INotifyPropertyChanged
+    public class Order : INotifyPropertyChanged
     {
-        private Provider provider;
         private DateTime dateTime;
         private int count;
+        private Menu menu;
+        private Provider provider;
 
         public int ID { get; set; }
+        public int Cost { get; set; }
+        public Food Food { get; set; }
+        public DateTime DateTime
+        {
+            get => dateTime;
+            set
+            {
+                dateTime = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateTime"));
+            }
+        }
+        public int Count
+        {
+            get => count;
+            set
+            {
+                count = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Count"));
+            }
+        }
+        public Menu Menu
+        {
+            get => menu;
+            set
+            {
+                menu = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menu"));
+            }
+        }
         public Provider Provider
         {
             get => provider;
@@ -22,24 +51,6 @@ namespace Bufet1131Vorobyov
             {
                 provider = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Provider"));
-            }
-        }
-        public Food Food { get; set; }
-        public DateTime DateTime
-        {
-            get => dateTime;
-            set
-            {
-                dateTime = value.Date;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DateTime"));
-            }
-        }
-        public int Count
-        {
-            get => count; set
-            {
-                count = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Count"));
             }
         }
 

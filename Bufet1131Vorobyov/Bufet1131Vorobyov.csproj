@@ -104,9 +104,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Entity\Accounting.cs" />
+    <Compile Include="Entity\Order.cs" />
     <Compile Include="Forms\AccountingProvider.xaml.cs">
       <DependentUpon>AccountingProvider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MySql\OrderSql.cs" />
     <Compile Include="MySql\AccountingSql.cs" />
     <Compile Include="Forms\AddFood.xaml.cs">
       <DependentUpon>AddFood.xaml</DependentUpon>

@@ -21,7 +21,7 @@
         <DataGrid x:Name="dataGrid1" Grid.Row="1" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Дата" IsReadOnly="True"
-                                    Binding="{Binding  DateTime, StringFormat=M/d/yyyy }" />
+                                    Binding="{Binding  DateTime, StringFormat=d/M/yyyy }" />
                 <DataGridTextColumn Header="Блюдо" IsReadOnly="True"
                                     Binding="{Binding Food.Name}"/>
                 <DataGridTextColumn Header="Поставщик" IsReadOnly="True"

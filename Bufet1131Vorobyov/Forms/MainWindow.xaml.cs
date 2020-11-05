@@ -80,5 +80,15 @@ namespace Bufet1131Vorobyov
             Foods = null;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
         }
+
+        private void MenuItem_Click_3(object sender, RoutedEventArgs e)
+        {
+            AddOrder addOrder = new AddOrder(dB);
+            addOrder.ShowDialog();
+            Menus = new MenuSql(dB).GetPublicMenu();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menus"));
+            Foods = null;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
+        }
     }
 }

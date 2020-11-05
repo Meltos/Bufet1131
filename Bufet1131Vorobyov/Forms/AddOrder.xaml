@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bufet1131Vorobyov"
         mc:Ignorable="d"
-        Title="AddOrder" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Учёт заказов" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,7 +21,7 @@
         <DataGrid Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Дата" IsReadOnly="True"
-                                    Binding="{Binding  DateTime, StringFormat=M/d/yyyy }" />
+                                    Binding="{Binding  DateTime, StringFormat=d/M/yyyy}" />
                 <DataGridTextColumn Header="Меню" IsReadOnly="True"
                                     Binding="{Binding Menu.Name}"/>
                 <DataGridTextColumn Header="Блюдо" IsReadOnly="True"
