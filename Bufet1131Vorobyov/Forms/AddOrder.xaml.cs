@@ -23,5 +23,10 @@ namespace Bufet1131Vorobyov
         {
             InitializeComponent();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

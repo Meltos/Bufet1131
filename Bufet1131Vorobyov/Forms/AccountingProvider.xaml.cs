@@ -25,12 +25,11 @@ namespace Bufet1131Vorobyov
         private DateTime dateTimeAcc;
         private int countAcc;
         private Provider selectedProvider;
-        private Food selectedFood;
         private DB dB;
 
         public ObservableCollection<Accounting> Accountings { get; set; }
         public ObservableCollection<Provider> Providers { get; set; }
-        public ObservableCollection<Food> ProviderFoods { get; set; }
+        public ObservableCollection<Food> Foods { get; set; }
         public Accounting SelectedAccounting
         {
             get => selectedAccounting;
@@ -39,18 +38,19 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedAccounting = value;
-                    foreach (var provider in Providers)
-                    {
-                        if (provider.ID == value.Provider.ID)
-                        {
-                            SelectedProvider = provider;
-                        }
-                    }
-                    foreach (var food in ProviderFoods)
+                    foreach (var food in Foods)
                     {
                         if (food.ID == value.Food.ID)
                         {
-                            SelectedFood = food;
+                            Providers = food.Providers;
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Providers"));
+                            foreach (var provider in food.Providers)
+                            {
+                                if (provider.ID == value.Provider.ID)
+                                {
+                                    SelectedProvider = provider;
+                                }
+                            }
                         }
                     }
                     DateTimeAcc = value.DateTime.Date;
@@ -84,6 +84,23 @@ namespace Bufet1131Vorobyov
             set
             {
                 countAcc = value;
+                foreach (var food in Foods)
+                {
+                    if (food.ID == SelectedAccounting.Food.ID)
+                    {
+                        FoodSql foodSql = new FoodSql(dB);
+                        int oldfoodcount = food.Count;
+                        food.Count -= SelectedAccounting.Count;
+                        food.Count += value;
+                        if (food.Count < 0)
+                        {
+                            MessageBox.Show("Количество блюд не может быть отрицательным","Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
+                            food.Count = oldfoodcount;
+                            return;
+                        }
+                        foodSql.EditFood(food);
+                    }
+                }
                 SelectedAccounting.Count = value;
                 EditAccounting(SelectedAccounting);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CountAcc"));
@@ -94,37 +111,13 @@ namespace Bufet1131Vorobyov
             get => selectedProvider;
             set
             {
-                selectedProvider = value;
-                if (value.Foods.Count <= 0)
+                if (value != null)
                 {
-                    label1.Visibility = Visibility.Collapsed;
-                    comboBox1.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    label1.Visibility = Visibility.Visible;
-                    comboBox1.Visibility = Visibility.Visible;
-                    ProviderFoods = value.Foods;
+                    selectedProvider = value;
                     SelectedAccounting.Provider = value;
                     EditAccounting(SelectedAccounting);
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedProvider"));
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ProviderFoods"));
                 }
-            }
-        }
-        public Food SelectedFood
-        {
-            get => selectedFood;
-            set
-            {
-                if (value != null)
-                {
-                    selectedFood = value;
-                    SelectedAccounting.Food = value;
-                    EditAccounting(SelectedAccounting);
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedFood"));
-                }
-                
             }
         }
 
@@ -132,7 +125,7 @@ namespace Bufet1131Vorobyov
         {
             InitializeComponent();
             Accountings = new AccountingSql(dB).GetData();
-            Providers = new ProviderSql(dB).GetProvidersFood();
+            Foods = new FoodSql(dB).GetFoodProviders();
             DataContext = this;
             this.dB = dB;
         }
@@ -150,7 +143,7 @@ namespace Bufet1131Vorobyov
             addNewAccounting.NewAccounting.ID = id;
             Accountings.Add(addNewAccounting.NewAccounting);
         }
-
+        /*
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             if (SelectedAccounting == null)
@@ -165,11 +158,6 @@ namespace Bufet1131Vorobyov
                 accountingSql.RemoveAccounting(SelectedAccounting);
                 Accountings.Remove(SelectedAccounting);
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }*/
     }
 }

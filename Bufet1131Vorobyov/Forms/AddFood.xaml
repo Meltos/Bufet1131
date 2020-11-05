@@ -53,9 +53,7 @@
             <Label Content="Картинка"/>
             <TextBox Text="{Binding PathIMG}"/>
             <Label Content="Меню"/>
-            <ListBox ItemsSource="{Binding Menus}" DisplayMemberPath="Name"/>
-            <Label Content="Поставщики"/>
-            <ListBox ItemsSource="{Binding Providers}" DisplayMemberPath="Name"/>
+            <ListBox ItemsSource="{Binding Menus}"/>
         </StackPanel>
     </Grid>
 </Window>

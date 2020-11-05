@@ -16,19 +16,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu Grid.ColumnSpan="2">
-            <MenuItem Header="Редактор">
-                <MenuItem Header="Добавить поставку" Click="MenuItem_Click"/>
-                <MenuItem Header="Удалить поставку" Click="MenuItem_Click_1"/>
-            </MenuItem>
+            <MenuItem Header="Добавить поставку" Click="MenuItem_Click"/>
         </Menu>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
+        <DataGrid x:Name="dataGrid1" Grid.Row="1" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Дата" IsReadOnly="True"
                                     Binding="{Binding  DateTime, StringFormat=M/d/yyyy }" />
-                <DataGridTextColumn Header="Поставщик" IsReadOnly="True"
-                                    Binding="{Binding Provider.Name}"/>
                 <DataGridTextColumn Header="Блюдо" IsReadOnly="True"
                                     Binding="{Binding Food.Name}"/>
+                <DataGridTextColumn Header="Поставщик" IsReadOnly="True"
+                                    Binding="{Binding Provider.Name}"/>
                 <DataGridTextColumn Header="Количество" IsReadOnly="True"
                                     Binding="{Binding Count}"/>
             </DataGrid.Columns>
@@ -38,11 +35,8 @@
             <DatePicker SelectedDate="{Binding DateTimeAcc}"/>
             <Label Content="Поставщик"/>
             <ComboBox ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name"/>
-            <Label x:Name="label1" Content="Блюдо" Visibility="Collapsed"/>
-            <ComboBox x:Name="comboBox1" ItemsSource="{Binding ProviderFoods}" SelectedItem="{Binding SelectedFood}" DisplayMemberPath="Name" Visibility="Collapsed"/>
             <Label Content="Количество"/>
             <TextBox Text="{Binding CountAcc}"/>
-            <Button Content="Высчитать" Click="Button_Click" Margin="50 20"/>
         </StackPanel>
     </Grid>
 </Window>

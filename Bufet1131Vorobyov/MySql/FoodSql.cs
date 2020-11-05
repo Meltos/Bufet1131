@@ -26,9 +26,7 @@ namespace Bufet1131Vorobyov
             string sql = "SELECT ISNULL(id_menu) as menunull,id_menu, id_food, m.id as idmenu, m.name as mname, m.status as mstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idmenufood i JOIN menu m ON i.id_menu = m.id right JOIN food f ON i.id_food = f.id";
             Food last = null;
             int menuid;
-            int providerid;
             Dictionary<int, Menu> menus = new Dictionary<int, Menu>();
-            Dictionary<int, Provider> providers = new Dictionary<int, Provider>();
             if (dB.OpenConnection())
             {
                 using (var mc = new MySqlCommand(sql, dB.connection))
@@ -70,6 +68,64 @@ namespace Bufet1131Vorobyov
                                         }
                                     }
                                         
+                                }
+                            }
+                        }
+                    }
+                }
+                dB.CloseConnection();
+            }
+            return result;
+        }
+
+        public ObservableCollection<Food> GetFoodProviders()
+        {
+            ObservableCollection<Food> result = new ObservableCollection<Food>();
+            string sql = "SELECT ISNULL(id_provider) as providernull,id_provider, id_food, p.id as idprovider, p.name as pname, p.status as pstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idproviderfood i JOIN provider p ON i.id_provider = p.id right JOIN food f ON i.id_food = f.id";
+            Food last = null;
+            int providerid;
+            Dictionary<int, Provider> providers = new Dictionary<int, Provider>();
+            if (dB.OpenConnection())
+            {
+                using (var mc = new MySqlCommand(sql, dB.connection))
+                {
+                    using (var dr = mc.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (dr.GetInt32("fstatus") == 1)
+                            {
+                                if (last != null && last.ID != dr.GetInt32("idfood"))
+                                    last = null;
+
+                                if (last == null)
+                                {
+                                    last = new Food { ID = dr.GetInt32("idfood"), Name = dr.GetString("fname"), PathIMG = dr.GetString("img"), Count = dr.GetInt32("count"), Description = dr.GetString("description"), Price = dr.GetInt32("price") }; ;
+                                    result.Add(last);
+                                }
+
+                                if (dr.GetInt32("providernull") != 1)
+                                {
+                                    if (dr.GetInt32("pstatus") > 0)
+                                    {
+                                        providerid = dr.GetInt32("id_provider");
+                                        if (providerid != 0)
+                                        {
+                                            if (providers.ContainsKey(providerid))
+                                            {
+                                                last.Providers.Add(providers[providerid]);
+                                                providers[providerid].Foods.Add(last);
+                                            }
+                                            else
+                                            {
+                                                Provider provider = new Provider { ID = providerid, Name = dr.GetString("pname") };
+                                                provider.Foods.Add(last);
+                                                providers.Add(providerid, provider);
+                                                last.Providers.Add(providers[providerid]);
+                                            }
+                                        }
+                                    }
+
                                 }
                             }
                         }

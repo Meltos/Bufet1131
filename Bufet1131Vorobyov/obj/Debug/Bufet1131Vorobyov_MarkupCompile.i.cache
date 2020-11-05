@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\App.xaml
-7240067149
+71810604070
 
-21132024194
+212016078961
 138584470624
-AccountingProvider.xaml;AddFood.xaml;AddMenu.xaml;AddNewAccounting.xaml;AddOrder.xaml;AddProvider.xaml;MainWindow.xaml;
+Forms\AccountingProvider.xaml;Forms\AddFood.xaml;Forms\AddMenu.xaml;Forms\AddNewAccounting.xaml;Forms\AddOrder.xaml;Forms\AddProvider.xaml;Forms\MainWindow.xaml;
 
-True
+False
 

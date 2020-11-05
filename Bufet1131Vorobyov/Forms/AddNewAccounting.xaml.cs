@@ -69,15 +69,15 @@ namespace Bufet1131Vorobyov
         {
             if (SelectedProvider == null)
             {
-                MessageBox.Show("Не выбран поставщик");
+                MessageBox.Show("Не выбран поставщик","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if (SelectedProvidersFood == null)
             {
-                MessageBox.Show("Не выбрано блюдо");
+                MessageBox.Show("Не выбрано блюдо", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else if (CountNewAcc < 0)
             {
-                MessageBox.Show("Введите количество блюд");
+                MessageBox.Show("Введите количество блюд", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
