@@ -1,0 +1,24 @@
+﻿<Window x:Class="Bufet1131Vorobyov.AddNewOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bufet1131Vorobyov"
+        mc:Ignorable="d"
+        Title="Заказ" Height="350" Width="300" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel>
+            <Label Content="Дата"/>
+            <DatePicker SelectedDate="{Binding DateTimeNew}"/>
+            <Label Content="Меню"/>
+            <ComboBox ItemsSource="{Binding Menus}" SelectedItem="{Binding SelectedMenu}" DisplayMemberPath="Name"/>
+            <Label x:Name="label1" Content="Блюдо" Visibility="Collapsed"/>
+            <ComboBox x:Name="comboBox1" ItemsSource="{Binding MenuFoods}" SelectedItem="{Binding SelectedFood}" DisplayMemberPath="Name"  Visibility="Collapsed"/>
+            <Label x:Name="label2" Content="Поставщик" Visibility="Collapsed"/>
+            <ComboBox x:Name="comboBox2" ItemsSource="{Binding FoodProviders}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name" Visibility="Collapsed"/>
+            <Label Content="Количество блюд"/>
+            <TextBox Text="{Binding CountNew}"/>
+            <Button Content="Добавить" Margin="100 20" Click="Button_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

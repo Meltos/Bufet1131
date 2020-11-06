@@ -86,5 +86,26 @@ namespace Bufet1131Vorobyov
                 dB.CloseConnection();
             }
         }
+
+        internal int AddNewOrder(Order newOrder)
+        {
+            int id = 0;
+            string sql = $"start transaction; insert into orderfood values(0, '{newOrder.DateTime.ToBinary()}', '{newOrder.Cost}', '{newOrder.Provider.ID}', '{newOrder.Food.ID}', '{newOrder.Menu.ID}'); select LAST_INSERT_ID(); commit;";
+            if (dB.OpenConnection())
+            {
+                using (var mc = new MySqlCommand(sql, dB.connection))
+                {
+                    using (var dr = mc.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            id = dr.GetInt32("LAST_INSERT_ID()");
+                        }
+                    }
+                }
+                dB.CloseConnection();
+            }
+            return id;
+        }
     }
 }

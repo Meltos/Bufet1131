@@ -83,9 +83,8 @@ namespace Bufet1131Vorobyov
 
         internal int AddNewAccounting(Accounting newaccounting)
         {
-            long date = newaccounting.DateTime.ToBinary();
             int id = 0;
-            string sql = $"start transaction; insert into accountingprovider values(0, '{newaccounting.Count}', '{date}', '{newaccounting.Provider.ID}', '{newaccounting.Food.ID}'); select LAST_INSERT_ID(); commit;";
+            string sql = $"start transaction; insert into accountingprovider values(0, '{newaccounting.Count}', '{newaccounting.DateTime.ToBinary()}', '{newaccounting.Provider.ID}', '{newaccounting.Food.ID}'); select LAST_INSERT_ID(); commit;";
             if (dB.OpenConnection())
             {
                 using (var mc = new MySqlCommand(sql, dB.connection))

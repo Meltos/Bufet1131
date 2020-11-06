@@ -78,6 +78,86 @@ namespace Bufet1131Vorobyov
             return result;
         }
 
+        internal ObservableCollection<Food> GetFoodMenuProvider()
+        {
+            ObservableCollection<Food> result = new ObservableCollection<Food>();
+            string sql = "SELECT ISNULL(i1.id_provider) AS providernull, i.id_menu, i.id_food, i1.id_provider, f.id AS idfood, f.name AS fname, f.count AS fcount, f.price as fprice, f.status AS fstatus, m.id AS idmenu, m.name AS mname, m.status AS mstatus, p.id AS idprovider, p.name AS pname, p.status AS pstatus FROM idproviderfood i1 join provider p ON i1.id_provider = p.id RIGHT JOIN idmenufood i ON i1.id_food = i.id_food JOIN menu m ON i.id_menu = m.id JOIN food f ON i.id_food = f.id ORDER BY idfood";
+            Food last = null;
+            int menuid;
+            int providerid;
+            Dictionary<int, Menu> menus = new Dictionary<int, Menu>();
+            Dictionary<int, Provider> providers = new Dictionary<int, Provider>();
+            if (dB.OpenConnection())
+            {
+                using (var mc = new MySqlCommand(sql, dB.connection))
+                {
+                    using (var dr = mc.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (dr.GetInt32("fstatus") == 1)
+                            {
+                                if (last != null && last.ID != dr.GetInt32("idfood"))
+                                    last = null;
+
+                                if (last == null)
+                                {
+                                    last = new Food { ID = dr.GetInt32("idfood"), Name = dr.GetString("fname"), Count = dr.GetInt32("fcount"), Price = dr.GetInt32("fprice") }; ;
+                                    result.Add(last);
+                                }
+
+                                if (dr.GetInt32("mstatus") > 0)
+                                {
+                                    menuid = dr.GetInt32("id_menu");
+                                    if (menuid != 0)
+                                    {
+                                        if (menus.ContainsKey(menuid))
+                                        {
+                                            last.Menus.Add(menus[menuid]);
+                                            menus[menuid].Foods.Add(last);
+                                        }
+                                        else
+                                        {
+                                            Menu menu = new Menu { ID = menuid, Name = dr.GetString("mname") };
+                                            menu.Foods.Add(last);
+                                            menus.Add(menuid, menu);
+                                            last.Menus.Add(menus[menuid]);
+                                        }
+                                    }
+                                }
+
+                                if (dr.GetInt32("providernull") != 1)
+                                {
+                                    if (dr.GetInt32("pstatus") > 0)
+                                    {
+                                        providerid = dr.GetInt32("id_provider");
+                                        if (providerid != 0)
+                                        {
+                                            if (providers.ContainsKey(providerid))
+                                            {
+                                                last.Providers.Add(providers[providerid]);
+                                                providers[providerid].Foods.Add(last);
+                                            }
+                                            else
+                                            {
+                                                Provider provider = new Provider { ID = providerid, Name = dr.GetString("pname") };
+                                                provider.Foods.Add(last);
+                                                providers.Add(providerid, provider);
+                                                last.Providers.Add(providers[providerid]);
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+                dB.CloseConnection();
+            }
+            return result;
+        }
+
         public ObservableCollection<Food> GetFoodProviders()
         {
             ObservableCollection<Food> result = new ObservableCollection<Food>();

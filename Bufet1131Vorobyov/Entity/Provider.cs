@@ -53,6 +53,7 @@ namespace Bufet1131Vorobyov
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Mail"));
             }
         }
+        public int Status { get; set; }
         public ObservableCollection<Food> Foods { get; set; } = new ObservableCollection<Food>();
 
         public event PropertyChangedEventHandler PropertyChanged;

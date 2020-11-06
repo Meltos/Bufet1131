@@ -108,6 +108,9 @@
     <Compile Include="Forms\AccountingProvider.xaml.cs">
       <DependentUpon>AccountingProvider.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\AddNewOrder.xaml.cs">
+      <DependentUpon>AddNewOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MySql\OrderSql.cs" />
     <Compile Include="MySql\AccountingSql.cs" />
     <Compile Include="Forms\AddFood.xaml.cs">
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Forms\AddNewAccounting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\AddNewOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

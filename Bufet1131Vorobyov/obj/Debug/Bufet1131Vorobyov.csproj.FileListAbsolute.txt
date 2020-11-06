@@ -134,3 +134,5 @@ C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet
 C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\Forms\AddProvider.baml
 C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\Forms\MainWindow.baml
 C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\Bufet1131Vorobyov.csprojAssemblyReference.cache
+C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\Forms\AddNewOrder.g.cs
+C:\Users\AERO\Desktop\Учёба\Курсовая 2\Bufet1131VorobyovProga\Bufet1131Vorobyov\obj\Debug\Forms\AddNewOrder.baml

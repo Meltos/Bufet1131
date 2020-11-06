@@ -39,7 +39,38 @@ namespace Bufet1131Vorobyov
             get => selectedOrder;
             set
             {
-                selectedOrder = value;
+                if (value != null)
+                {
+                    selectedOrder = value;
+                    foreach (var food in Foods)
+                    {
+                        if (food.ID == value.Food.ID)
+                        {
+                            Providers = food.Providers;
+                            Menus = food.Menus;
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Providers"));
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menus"));
+                            foreach (var provider in food.Providers)
+                            {
+                                if (provider.ID == value.Provider.ID)
+                                {
+                                    SelectedProvider = provider;
+                                }
+                            }
+                            foreach (var menu in food.Menus)
+                            {
+                                if (menu.ID == value.Menu.ID)
+                                {
+                                    SelectedMenu = menu;
+                                }
+                            }
+                        }
+                    }
+                    DateTimeOrder = value.DateTime.Date;
+                    CountOrder = value.Count;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedOrder"));
+                }
+                
             }
         }
         public Menu SelectedMenu
@@ -88,6 +119,23 @@ namespace Bufet1131Vorobyov
             set
             {
                 countOrder = value;
+                foreach (var food in Foods)
+                {
+                    if (food.ID == SelectedOrder.Food.ID)
+                    {
+                        FoodSql foodSql = new FoodSql(dB);
+                        int oldfoodcount = food.Count;
+                        food.Count += SelectedOrder.Count;
+                        food.Count -= value;
+                        if (food.Count < 0)
+                        {
+                            MessageBox.Show("Количество блюд не может быть отрицательным", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            food.Count = oldfoodcount;
+                            return;
+                        }
+                        foodSql.EditFood(food);
+                    }
+                }
                 SelectedOrder.Count = value;
                 EditOrder(SelectedOrder);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CountOrder"));
@@ -104,13 +152,21 @@ namespace Bufet1131Vorobyov
         {
             InitializeComponent();
             Orders = new OrderSql(dB).GetData();
+            Foods = new FoodSql(dB).GetFoodMenuProvider();
             DataContext = this;
             this.dB = dB;
         }
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            AddNewOrder addNewOrder = new AddNewOrder(dB);
+            addNewOrder.ShowDialog();
+            if (addNewOrder.NewOrder == null)
+                return;
+            OrderSql orderSql = new OrderSql(dB);
+            int id = orderSql.AddNewOrder(addNewOrder.NewOrder);
+            addNewOrder.NewOrder.ID = id;
+            Orders.Add(addNewOrder.NewOrder);
         }
     }
 }

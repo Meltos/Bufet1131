@@ -30,6 +30,8 @@
                                     Binding="{Binding Provider.Name}"/>
                 <DataGridTextColumn Header="Количество" IsReadOnly="True"
                                     Binding="{Binding Count}"/>
+                <DataGridTextColumn Header="Итоговая цена" IsReadOnly="True"
+                                    Binding="{Binding Cost}"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="1" Grid.Column="1">
@@ -38,7 +40,7 @@
             <Label Content="Меню"/>
             <ComboBox ItemsSource="{Binding Menus}" SelectedItem="{Binding SelectedMenu}" DisplayMemberPath="Name"/>
             <Label Content="Поставщик"/>
-            <ComboBox ItemsSource="{Binding FoodProviders}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name"/>
+            <ComboBox ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name"/>
             <Label Content="Количество"/>
             <TextBox Text="{Binding CountOrder}"/>
         </StackPanel>
