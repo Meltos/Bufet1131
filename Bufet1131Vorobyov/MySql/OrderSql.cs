@@ -16,7 +16,7 @@ namespace Bufet1131Vorobyov
         internal ObservableCollection<Order> GetData()
         {
             ObservableCollection<Order> result = new ObservableCollection<Order>();
-            string sql = "SELECT o.id as oid, o.date as odate, o.count as ocount, o.cost as ocost, id_provider, id_food, o.id_menu, p.id as idprovider, p.name AS pname, f.id as idfood, f.name as fname, f.count AS fcount, m.id AS idmenu, m.name AS mname FROM orderfood o JOIN food f ON o.id_food = f.id  JOIN provider p ON o.id_provider = p.id JOIN menu m ON o.id_menu = m.id";
+            string sql = "SELECT o.id as oid, o.date as odate, o.count as ocount, o.cost as ocost, id_provider, id_food, o.id_menu, p.id as idprovider, p.name AS pname, f.id as idfood, f.name as fname, f.count AS fcount, f.price as fprice, m.id AS idmenu, m.name AS mname FROM orderfood o JOIN food f ON o.id_food = f.id  JOIN provider p ON o.id_provider = p.id JOIN menu m ON o.id_menu = m.id";
             Order last = null;
             if (dB.OpenConnection())
             {
@@ -44,6 +44,7 @@ namespace Bufet1131Vorobyov
                                 food.ID = dr.GetInt32("idfood");
                                 food.Name = dr.GetString("fname");
                                 food.Count = dr.GetInt32("fcount");
+                                food.Price = dr.GetInt32("fprice");
                                 last.Food = food;
                                 Menu menu = new Menu();
                                 menu.ID = dr.GetInt32("idmenu");
