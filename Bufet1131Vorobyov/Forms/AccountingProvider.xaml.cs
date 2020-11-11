@@ -37,11 +37,19 @@ namespace Bufet1131Vorobyov
             {
                 if (value != null)
                 {
+                    
                     selectedAccounting = value;
                     foreach (var food in Foods)
                     {
                         if (food.ID == value.Food.ID)
                         {
+                            if (food.Providers.Count == 0)
+                            {
+                                ObservableCollection<Provider> providersnull = new ObservableCollection<Provider>();
+                                providersnull.Add(value.Provider);
+                                Providers = providersnull;
+                                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Providers"));
+                            }
                             Providers = food.Providers;
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Providers"));
                             foreach (var provider in food.Providers)
@@ -49,6 +57,7 @@ namespace Bufet1131Vorobyov
                                 if (provider.ID == value.Provider.ID)
                                 {
                                     SelectedProvider = provider;
+                                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedProvider"));
                                 }
                             }
                         }
@@ -125,7 +134,7 @@ namespace Bufet1131Vorobyov
         {
             InitializeComponent();
             Accountings = new AccountingSql(dB).GetData();
-            Foods = new FoodSql(dB).GetFoodProviders();
+            Foods = new FoodSql(dB).GetFoodNullProviders();
             DataContext = this;
             this.dB = dB;
         }
@@ -142,6 +151,8 @@ namespace Bufet1131Vorobyov
             int id = accountingSql.AddNewAccounting(addNewAccounting.NewAccounting);
             addNewAccounting.NewAccounting.ID = id;
             Accountings.Add(addNewAccounting.NewAccounting);
+            Foods = new FoodSql(dB).GetFoodProviders();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
         }
         /*
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)

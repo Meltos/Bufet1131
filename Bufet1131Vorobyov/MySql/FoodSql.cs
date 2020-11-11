@@ -216,6 +216,58 @@ namespace Bufet1131Vorobyov
             return result;
         }
 
+        public ObservableCollection<Food> GetFoodNullProviders()
+        {
+            ObservableCollection<Food> result = new ObservableCollection<Food>();
+            string sql = "SELECT ISNULL(id_provider) as providernull,id_provider, id_food, p.id as idprovider, p.name as pname, p.status as pstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idproviderfood i JOIN provider p ON i.id_provider = p.id right JOIN food f ON i.id_food = f.id";
+            Food last = null;
+            int providerid;
+            Dictionary<int, Provider> providers = new Dictionary<int, Provider>();
+            if (dB.OpenConnection())
+            {
+                using (var mc = new MySqlCommand(sql, dB.connection))
+                {
+                    using (var dr = mc.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (last != null && last.ID != dr.GetInt32("idfood"))
+                                last = null;
+
+                            if (last == null)
+                            {
+                                last = new Food { ID = dr.GetInt32("idfood"), Name = dr.GetString("fname"), PathIMG = dr.GetString("img"), Count = dr.GetInt32("count"), Description = dr.GetString("description"), Price = dr.GetInt32("price") }; ;
+                                result.Add(last);
+                            }
+
+                            if (dr.GetInt32("providernull") != 1)
+                            {
+                                providerid = dr.GetInt32("id_provider");
+                                if (providerid != 0)
+                                {
+                                    if (providers.ContainsKey(providerid))
+                                    {
+                                        last.Providers.Add(providers[providerid]);
+                                        providers[providerid].Foods.Add(last);
+                                    }
+                                    else
+                                    {
+                                        Provider provider = new Provider { ID = providerid, Name = dr.GetString("pname") };
+                                        provider.Foods.Add(last);
+                                        providers.Add(providerid, provider);
+                                        last.Providers.Add(providers[providerid]);
+                                    }
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                dB.CloseConnection();
+            }
+            return result;
+        }
+
         internal ObservableCollection<Food> GetNoProviderFoods(Provider value)
         {
             var except = value.Foods.Select(s => s.ID);
@@ -259,7 +311,7 @@ namespace Bufet1131Vorobyov
         internal int AddNewFood(Food newfood)
         {
             int id = 0;
-            string sql = $"start transaction; insert into food values(0, '{newfood.Name}', 'Нет в наличии', '0', '{newfood.PathIMG}', '', '1'); select LAST_INSERT_ID(); commit;";
+            string sql = $"start transaction; insert into food values(0, '{newfood.Name}', '0', '0', '{newfood.PathIMG}', '', '1'); select LAST_INSERT_ID(); commit;";
             if (dB.OpenConnection())
             {
                 using (var mc = new MySqlCommand(sql, dB.connection))

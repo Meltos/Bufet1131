@@ -27,8 +27,6 @@ namespace Bufet1131Vorobyov
                     {
                         while (dr.Read())
                         {
-                            if (dr.GetInt32("pstatus") > 0)
-                            {
                                 if (last != null && last.ID != dr.GetInt32("aid"))
                                     last = null;
 
@@ -49,7 +47,7 @@ namespace Bufet1131Vorobyov
                                     last.Food = food;
                                     result.Add(last);
                                 }
-                            }
+                            
                         }
                     }
                 }

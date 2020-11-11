@@ -63,6 +63,14 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedFood = value;
+                    foreach (var food in Foods)
+                    {
+                        if (value.ID == food.ID)
+                        {
+                            value.Providers = food.Providers;
+                            break;
+                        }
+                    }
                     if (value.Providers.Count <= 0)
                     {
                         label2.Visibility = Visibility.Collapsed;
@@ -86,8 +94,8 @@ namespace Bufet1131Vorobyov
         public AddNewOrder(DB dB)
         {
             InitializeComponent();
-            Foods = new FoodSql(dB).GetFoodMenuProvider();
-            Menus = 
+            Foods = new FoodSql(dB).GetFoodProviders();
+            Menus = new MenuSql(dB).GetPublicMenu();
             DateTimeNew = DateTime.Now;
             DataContext = this;
             this.dB = dB;
@@ -139,7 +147,9 @@ namespace Bufet1131Vorobyov
                             NewOrder = null;
                             return;
                         }
+                        NewOrder.Food.Count -= NewOrder.Count;
                         foodSql.EditFood(food);
+                        break;
                     }
                 }
                 Close();

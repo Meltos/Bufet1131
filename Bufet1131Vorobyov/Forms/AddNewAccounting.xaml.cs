@@ -92,7 +92,9 @@ namespace Bufet1131Vorobyov
                     {
                         FoodSql foodSql = new FoodSql(dB);
                         food.Count += NewAccounting.Count;
+                        NewAccounting.Food.Count += NewAccounting.Count;
                         foodSql.EditFood(food);
+                        break;
                     }
                 }
                 Close();

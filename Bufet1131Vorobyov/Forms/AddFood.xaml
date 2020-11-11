@@ -9,11 +9,14 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="0.6*"/>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.4*"/>
         </Grid.RowDefinitions>
         <Menu Grid.ColumnSpan="2">
             <MenuItem Header="Редактор">
@@ -21,7 +24,7 @@
                 <MenuItem Header="Удалить блюдо" Click="MenuItem_Click_1"/>
             </MenuItem>
         </Menu>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Foods}" SelectedItem="{Binding SelectedFood}"
+        <DataGrid Grid.RowSpan="3" Grid.Row="1" ItemsSource="{Binding Foods}" SelectedItem="{Binding SelectedFood}"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Картинка">
@@ -41,19 +44,22 @@
                                     Binding="{Binding Description}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1" DataContext="{Binding SelectedFood}">
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
             <Label Content="Название блюда"/>
-            <TextBox Text="{Binding Name}"/>
+            <TextBox Text="{Binding NameFood}"/>
             <Label Content="Цена"/>
-            <TextBox Text="{Binding Price}"/>
+            <TextBox Text="{Binding PriceFood}"/>
             <Label Content="Количество"/>
-            <TextBox Text="{Binding Count}"/>
+            <TextBox Text="{Binding CountFood}"/>
             <Label Content="Описание"/>
-            <TextBox Text="{Binding Description}"/>
+            <TextBox Text="{Binding DescriptionFood}"/>
             <Label Content="Картинка"/>
-            <TextBox Text="{Binding PathIMG}"/>
-            <Label Content="Меню"/>
-            <ListBox ItemsSource="{Binding Menus}"/>
+            <TextBox Text="{Binding PathIMGFood}"/>
+            
         </StackPanel>
+        <Label Content="Меню" Grid.Row="2" Grid.Column="1"/>
+        <ListBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Menus}" DisplayMemberPath="Name"/>
+        <Label Grid.Row="2" Grid.Column="2" Content="Поставщики"/>
+        <ListBox Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Providers}" DisplayMemberPath="Name"/>
     </Grid>
 </Window>

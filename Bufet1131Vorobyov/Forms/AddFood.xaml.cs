@@ -30,6 +30,9 @@ namespace Bufet1131Vorobyov
         private readonly DB dB;
 
         public ObservableCollection<Food> Foods { get; set; }
+        public ObservableCollection<Food> ProvidersFood { get; set; }
+        public ObservableCollection<Menu> Menus { get; set; }
+        public ObservableCollection<Provider> Providers { get; set; }
         public Food SelectedFood
         {
             get => selectedFood;
@@ -38,11 +41,29 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedFood = value;
+                    foreach (var food in ProvidersFood)
+                    {
+                        if (food.ID == value.ID)
+                        {
+                            Providers = food.Providers;
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Providers"));
+                            break;
+                        }
+                    }
+                    foreach (var food in Foods)
+                    {
+                        if (food.ID == value.ID)
+                        {
+                            Menus = food.Menus;
+                            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menus"));
+                            break;
+                        }
+                    }
                     NameFood = SelectedFood.Name;
                     CountFood = SelectedFood.Count;
                     PriceFood = SelectedFood.Price;
                     DescriptionFood = SelectedFood.Description;
-                    PathIMG = SelectedFood.PathIMG;
+                    PathIMGFood = SelectedFood.PathIMG;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("SelectedFood"));
                 }
             }
@@ -92,7 +113,7 @@ namespace Bufet1131Vorobyov
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("DescriptionFood"));
             }
         }
-        public string PathIMG
+        public string PathIMGFood
         {
             get => pathIMG;
             set
@@ -100,7 +121,7 @@ namespace Bufet1131Vorobyov
                 pathIMG = value;
                 SelectedFood.PathIMG = value;
                 EditFood(SelectedFood);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PathIMG"));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PathIMGFood"));
             }
         }
 
@@ -113,7 +134,7 @@ namespace Bufet1131Vorobyov
         public AddFood(DB dB)
         {
             InitializeComponent();
-
+            ProvidersFood = new FoodSql(dB).GetFoodProviders();
             Foods = new FoodSql(dB).GetData();
             DataContext = this;
             this.dB = dB;
@@ -125,6 +146,8 @@ namespace Bufet1131Vorobyov
         {
             Food newfood = new Food();
             newfood.PathIMG = "";
+            newfood.Name = "";
+            newfood.Description = "";
             FoodSql foodSql = new FoodSql(dB);
             int id = foodSql.AddNewFood(newfood);
             newfood.ID = id;

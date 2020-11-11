@@ -16,7 +16,7 @@ namespace Bufet1131Vorobyov
         internal ObservableCollection<Order> GetData()
         {
             ObservableCollection<Order> result = new ObservableCollection<Order>();
-            string sql = "SELECT o.id as oid, o.date as odate, o.count as ocount, id_provider, id_food, o.id_menu, p.id as idprovider, p.name AS pname, f.id as idfood, f.name as fname, f.count AS fcount, m.id AS idmenu, m.name AS mname FROM orderfood o JOIN food f ON o.id_food = f.id  JOIN provider p ON o.id_provider = p.id JOIN menu m ON o.id_menu = m.id";
+            string sql = "SELECT o.id as oid, o.date as odate, o.count as ocount, o.cost as ocost, id_provider, id_food, o.id_menu, p.id as idprovider, p.name AS pname, f.id as idfood, f.name as fname, f.count AS fcount, m.id AS idmenu, m.name AS mname FROM orderfood o JOIN food f ON o.id_food = f.id  JOIN provider p ON o.id_provider = p.id JOIN menu m ON o.id_menu = m.id";
             Order last = null;
             if (dB.OpenConnection())
             {
@@ -35,6 +35,7 @@ namespace Bufet1131Vorobyov
                                 last.ID = dr.GetInt32("oid");
                                 last.DateTime = DateTime.FromBinary(dr.GetInt64("odate"));
                                 last.Count = dr.GetInt32("ocount");
+                                last.Cost = dr.GetInt32("ocost");
                                 Provider provider = new Provider();
                                 provider.ID = dr.GetInt32("idprovider");
                                 provider.Name = dr.GetString("pname");
@@ -77,10 +78,10 @@ namespace Bufet1131Vorobyov
                 p4.Value = selectedOrder.Food.ID;
                 mc.Parameters.Add(p4);
                 var p5 = new MySqlParameter("id_menu", MySqlDbType.Int32);
-                p5.Value = selectedOrder.Food.ID;
+                p5.Value = selectedOrder.Menu.ID;
                 mc.Parameters.Add(p5);
                 var p6 = new MySqlParameter("cost", MySqlDbType.Int32);
-                p6.Value = selectedOrder.Food.ID;
+                p6.Value = selectedOrder.Cost;
                 mc.Parameters.Add(p6);
                 mc.ExecuteNonQuery();
                 dB.CloseConnection();
@@ -90,7 +91,7 @@ namespace Bufet1131Vorobyov
         internal int AddNewOrder(Order newOrder)
         {
             int id = 0;
-            string sql = $"start transaction; insert into orderfood values(0, '{newOrder.DateTime.ToBinary()}', '{newOrder.Cost}', '{newOrder.Provider.ID}', '{newOrder.Food.ID}', '{newOrder.Menu.ID}'); select LAST_INSERT_ID(); commit;";
+            string sql = $"start transaction; insert into orderfood values(0, '{newOrder.DateTime.ToBinary()}', '{newOrder.Count}', '{newOrder.Cost}', '{newOrder.Provider.ID}', '{newOrder.Food.ID}', '{newOrder.Menu.ID}'); select LAST_INSERT_ID(); commit;";
             if (dB.OpenConnection())
             {
                 using (var mc = new MySqlCommand(sql, dB.connection))

@@ -33,7 +33,8 @@ namespace Bufet1131Vorobyov
         public ObservableCollection<Order> Orders { get; set; }
         public ObservableCollection<Provider> Providers { get; set; }
         public ObservableCollection<Menu> Menus { get; set; }
-        public ObservableCollection<Food> Foods { get; set; }
+        public ObservableCollection<Food> FoodProviders { get; set; }
+        public ObservableCollection<Food> FoodMenus { get; set; }
         public Order SelectedOrder
         {
             get => selectedOrder;
@@ -42,28 +43,38 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedOrder = value;
-                    foreach (var food in Foods)
+                    foreach (var food in FoodProviders)
                     {
                         if (food.ID == value.Food.ID)
                         {
                             Providers = food.Providers;
-                            Menus = food.Menus;
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Providers"));
+                            break;
+                        }
+                    }
+                    foreach (var food in FoodMenus)
+                    {
+                        if (food.ID == value.Food.ID)
+                        {
+                            Menus = food.Menus;
                             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Menus"));
-                            foreach (var provider in food.Providers)
-                            {
-                                if (provider.ID == value.Provider.ID)
-                                {
-                                    SelectedProvider = provider;
-                                }
-                            }
-                            foreach (var menu in food.Menus)
-                            {
-                                if (menu.ID == value.Menu.ID)
-                                {
-                                    SelectedMenu = menu;
-                                }
-                            }
+                            break;
+                        }
+                    }
+                    foreach (var provider in Providers)
+                    {
+                        if (provider.ID == value.Provider.ID)
+                        {
+                            SelectedProvider = provider;
+                            break;
+                        }
+                    }
+                    foreach (var menu in Menus)
+                    {
+                        if (menu.ID == value.Menu.ID)
+                        {
+                            SelectedMenu = menu;
+                            break;
                         }
                     }
                     DateTimeOrder = value.DateTime.Date;
@@ -119,7 +130,7 @@ namespace Bufet1131Vorobyov
             set
             {
                 countOrder = value;
-                foreach (var food in Foods)
+                foreach (var food in FoodMenus)
                 {
                     if (food.ID == SelectedOrder.Food.ID)
                     {
@@ -134,9 +145,12 @@ namespace Bufet1131Vorobyov
                             return;
                         }
                         foodSql.EditFood(food);
+                        break;
                     }
                 }
+                Не изменяетя итоговая стоимость!!!
                 SelectedOrder.Count = value;
+                SelectedOrder.Cost = SelectedOrder.Count * SelectedOrder.Food.Price;
                 EditOrder(SelectedOrder);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CountOrder"));
             }
@@ -152,7 +166,8 @@ namespace Bufet1131Vorobyov
         {
             InitializeComponent();
             Orders = new OrderSql(dB).GetData();
-            Foods = new FoodSql(dB).GetFoodMenuProvider();
+            FoodProviders = new FoodSql(dB).GetFoodProviders();
+            FoodMenus = new FoodSql(dB).GetData();
             DataContext = this;
             this.dB = dB;
         }
@@ -167,6 +182,8 @@ namespace Bufet1131Vorobyov
             int id = orderSql.AddNewOrder(addNewOrder.NewOrder);
             addNewOrder.NewOrder.ID = id;
             Orders.Add(addNewOrder.NewOrder);
+            FoodMenus = new FoodSql(dB).GetData();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FoodMenus"));
         }
     }
 }
