@@ -13,9 +13,18 @@ namespace Bufet1131Vorobyov
         private int count;
         private Menu menu;
         private Provider provider;
+        private int cost;
 
         public int ID { get; set; }
-        public int Cost { get; set; }
+        public int Cost 
+        { 
+            get => cost;
+            set
+            {
+                cost = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Cost"));
+            }
+        }
         public Food Food { get; set; }
         public DateTime DateTime
         {

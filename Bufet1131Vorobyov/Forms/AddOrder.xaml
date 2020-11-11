@@ -30,7 +30,7 @@
                                     Binding="{Binding Provider.Name}"/>
                 <DataGridTextColumn Header="Количество" IsReadOnly="True"
                                     Binding="{Binding Count}"/>
-                <DataGridTextColumn Header="Итоговая цена" IsReadOnly="True"
+                <DataGridTextColumn Header="Итоговая стоимость" IsReadOnly="True"
                                     Binding="{Binding Cost}"/>
             </DataGrid.Columns>
         </DataGrid>

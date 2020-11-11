@@ -148,7 +148,6 @@ namespace Bufet1131Vorobyov
                         break;
                     }
                 }
-                Не изменяетя итоговая стоимость!!!
                 SelectedOrder.Count = value;
                 SelectedOrder.Cost = SelectedOrder.Count * SelectedOrder.Food.Price;
                 EditOrder(SelectedOrder);
