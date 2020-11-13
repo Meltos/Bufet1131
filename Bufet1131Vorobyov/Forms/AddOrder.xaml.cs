@@ -184,5 +184,36 @@ namespace Bufet1131Vorobyov
             FoodMenus = new FoodSql(dB).GetData();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FoodMenus"));
         }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (SelectedOrder == null)
+                return;
+            MessageBoxResult result = MessageBox.Show("Вы хотите удалить заказ, сохранив изменения количетсва еды?",
+                                         "Предупреждение",
+                                         MessageBoxButton.YesNoCancel,
+                                         MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                OrderSql orderSql = new OrderSql(dB);
+                orderSql.RemoveOrder(SelectedOrder);
+                Orders.Remove(SelectedOrder);
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                foreach (var food in FoodMenus)
+                {
+                    if (food.ID == SelectedOrder.Food.ID)
+                    {
+                        FoodSql foodSql = new FoodSql(dB);
+                        food.Count += SelectedOrder.Count;
+                        foodSql.EditFood(food);
+                    }
+                }
+                OrderSql orderSql = new OrderSql(dB);
+                orderSql.RemoveOrder(SelectedOrder);
+                Orders.Remove(SelectedOrder);
+            }
+        }
     }
 }

@@ -40,10 +40,13 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedMenu = value;
+                    label2.Visibility = Visibility.Collapsed;
+                    comboBox2.Visibility = Visibility.Collapsed;
                     if (value.Foods.Count <= 0)
                     {
                         label1.Visibility = Visibility.Collapsed;
                         comboBox1.Visibility = Visibility.Collapsed;
+
                     }
                     else
                     {
@@ -107,7 +110,7 @@ namespace Bufet1131Vorobyov
             {
                 MessageBox.Show("Не выбрано меню", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (SelectedFood == null)
+            else if (SelectedFood == null || !MenuFoods.Contains(SelectedFood))
             {
                 MessageBox.Show("Не выбрано блюдо", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }

@@ -16,7 +16,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu Grid.ColumnSpan="2">
-            <MenuItem Header="Добавить заказ" Click="MenuItem_Click"/>
+            <MenuItem Header="Редактор">
+                <MenuItem Header="Добавить заказ" Click="MenuItem_Click"/>
+                <MenuItem Header="Удалить заказ" Click="MenuItem_Click_1"/>
+            </MenuItem>
+            
         </Menu>
         <DataGrid Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
             <DataGrid.Columns>

@@ -154,14 +154,14 @@ namespace Bufet1131Vorobyov
             Foods = new FoodSql(dB).GetFoodProviders();
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
         }
-        /*
+
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             if (SelectedAccounting == null)
                 return;
-            MessageBoxResult result = MessageBox.Show("Вы точно хотите удалить поставку?",
+            MessageBoxResult result = MessageBox.Show("Вы хотите удалить поставку, сохранив изменения количетсва еды?",
                                          "Предупреждение",
-                                         MessageBoxButton.YesNo,
+                                         MessageBoxButton.YesNoCancel,
                                          MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
@@ -169,6 +169,28 @@ namespace Bufet1131Vorobyov
                 accountingSql.RemoveAccounting(SelectedAccounting);
                 Accountings.Remove(SelectedAccounting);
             }
-        }*/
+            else if (result == MessageBoxResult.No)
+            {
+                foreach (var food in Foods)
+                {
+                    if (food.ID == SelectedAccounting.Food.ID)
+                    {
+                        FoodSql foodSql = new FoodSql(dB);
+                        int oldfoodcount = food.Count;
+                        food.Count -= SelectedAccounting.Count;
+                        if (food.Count < 0)
+                        {
+                            MessageBox.Show("Количество блюд не может быть отрицательным", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            food.Count = oldfoodcount;
+                            return;
+                        }
+                        foodSql.EditFood(food);
+                    }
+                }
+                AccountingSql accountingSql = new AccountingSql(dB);
+                accountingSql.RemoveAccounting(SelectedAccounting);
+                Accountings.Remove(SelectedAccounting);
+            }
+        }
     }
 }

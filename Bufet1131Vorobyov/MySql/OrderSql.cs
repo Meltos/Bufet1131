@@ -109,5 +109,16 @@ namespace Bufet1131Vorobyov
             }
             return id;
         }
+
+        internal void RemoveOrder(Order selectedOrder)
+        {
+            string sql = $"DELETE from orderfood WHERE id = '{selectedOrder.ID}'";
+            if (dB.OpenConnection())
+            {
+                var mc = new MySqlCommand(sql, dB.connection);
+                mc.ExecuteNonQuery();
+                dB.CloseConnection();
+            }
+        }
     }
 }

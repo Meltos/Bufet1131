@@ -13,12 +13,22 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu Grid.ColumnSpan="2">
-            <MenuItem Header="Добавить поставку" Click="MenuItem_Click"/>
+            <MenuItem Header="Редактор">
+                <MenuItem Header="Добавить поставку" Click="MenuItem_Click"/>
+                <MenuItem Header="Удалить поставку" Click="MenuItem_Click_1"/>
+            </MenuItem>
         </Menu>
-        <DataGrid x:Name="dataGrid1" Grid.Row="1" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Content="Найти"/>
+            <ComboBox SelectedItem="{Binding SelectedFilterProvider}" ItemsSource="{Binding Menus}"/>
+            
+        </StackPanel>
+
+        <DataGrid x:Name="dataGrid1" Grid.Row="2" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Дата" IsReadOnly="True"
                                     Binding="{Binding  DateTime, StringFormat=d/M/yyyy }" />
@@ -30,7 +40,7 @@
                                     Binding="{Binding Count}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel x:Name="stack" Grid.Row="1" Grid.Column="1">
+        <StackPanel x:Name="stack" Grid.Row="2" Grid.Column="1">
             <Label Content="Дата"/>
             <DatePicker SelectedDate="{Binding DateTimeAcc}"/>
             <Label Content="Поставщик"/>
