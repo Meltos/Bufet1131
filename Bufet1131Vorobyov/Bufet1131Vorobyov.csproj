@@ -103,33 +103,65 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddFood.xaml.cs">
+    <Compile Include="Entity\Accounting.cs" />
+    <Compile Include="Entity\Order.cs" />
+    <Compile Include="Forms\AccountingProvider.xaml.cs">
+      <DependentUpon>AccountingProvider.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddNewOrder.xaml.cs">
+      <DependentUpon>AddNewOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MySql\OrderSql.cs" />
+    <Compile Include="MySql\AccountingSql.cs" />
+    <Compile Include="Forms\AddFood.xaml.cs">
       <DependentUpon>AddFood.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddMenu.xaml.cs">
+    <Compile Include="Forms\AddMenu.xaml.cs">
       <DependentUpon>AddMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddProvider.xaml.cs">
+    <Compile Include="Forms\AddNewAccounting.xaml.cs">
+      <DependentUpon>AddNewAccounting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddOrder.xaml.cs">
+      <DependentUpon>AddOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddProvider.xaml.cs">
       <DependentUpon>AddProvider.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DB.cs" />
-    <Compile Include="MenuSql.cs" />
-    <Compile Include="FoodSql.cs" />
-    <Compile Include="Provider.cs" />
-    <Compile Include="ProviderSql.cs" />
-    <Page Include="AddFood.xaml">
+    <Compile Include="MySql\DB.cs" />
+    <Compile Include="MySql\MenuSql.cs" />
+    <Compile Include="MySql\FoodSql.cs" />
+    <Compile Include="Entity\Provider.cs" />
+    <Compile Include="MySql\ProviderSql.cs" />
+    <Page Include="Forms\AccountingProvider.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddMenu.xaml">
+    <Page Include="Forms\AddFood.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddProvider.xaml">
+    <Page Include="Forms\AddMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Forms\AddNewAccounting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\AddNewOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\AddOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\AddProvider.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -137,14 +169,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Food.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Entity\Food.cs" />
+    <Compile Include="Forms\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu.cs" />
+    <Compile Include="Entity\Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -171,5 +203,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

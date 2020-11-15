@@ -1,0 +1,57 @@
+﻿<Window x:Class="Bufet1131Vorobyov.AccountingProvider"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bufet1131Vorobyov"
+        mc:Ignorable="d"
+        Title="Учёт поставок блюд" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.7*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="Редактор">
+                <MenuItem Header="Добавить поставку" Click="MenuItem_Click"/>
+                <MenuItem Header="Удалить поставку" Click="MenuItem_Click_1"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Content="Поставщик"/>
+            <ComboBox SelectedItem="{Binding SelectedFilterProvider}" ItemsSource="{Binding Roviders}"/>
+            <Label Content="Блюдо"/>
+            <ComboBox SelectedItem="{Binding SelectedFilterFood}"/>
+            <Label Content="От"/>
+            <DatePicker SelectedDate="{Binding FirstFiterDate}"/>
+            <Label Content="До"/>
+            <DatePicker SelectedDate="{Binding SecondFilterDate}"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dataGrid1" Grid.Row="2" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Дата" IsReadOnly="True"
+                                    Binding="{Binding  DateTime, StringFormat=d/M/yyyy }" />
+                <DataGridTextColumn Header="Блюдо" IsReadOnly="True"
+                                    Binding="{Binding Food.Name}"/>
+                <DataGridTextColumn Header="Поставщик" IsReadOnly="True"
+                                    Binding="{Binding Provider.Name}"/>
+                <DataGridTextColumn Header="Количество" IsReadOnly="True"
+                                    Binding="{Binding Count}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel x:Name="stack" Grid.Row="2" Grid.Column="1">
+            <Label Content="Дата"/>
+            <DatePicker SelectedDate="{Binding DateTimeAcc}"/>
+            <Label Content="Поставщик"/>
+            <ComboBox ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name"/>
+            <Label Content="Количество"/>
+            <TextBox Text="{Binding CountAcc}"/>
+        </StackPanel>
+    </Grid>
+</Window>
