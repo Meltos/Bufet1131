@@ -1,7 +1,7 @@
 --
 -- Скрипт сгенерирован Devart dbForge Studio 2020 for MySQL, Версия 9.0.435.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 11.11.2020 19:21:24
+-- Дата скрипта: 15.11.2020 22:06:56
 -- Версия сервера: 8.0.20
 -- Версия клиента: 4.1
 --
@@ -128,7 +128,8 @@ CREATE TABLE orderfood (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
-AUTO_INCREMENT = 19,
+AUTO_INCREMENT = 29,
+AVG_ROW_LENGTH = 2048,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_general_ci;
 
@@ -223,7 +224,7 @@ CREATE TABLE accountingprovider (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
-AUTO_INCREMENT = 30,
+AUTO_INCREMENT = 33,
 AVG_ROW_LENGTH = 16384,
 CHARACTER SET utf8mb4,
 COLLATE utf8mb4_general_ci;
@@ -283,7 +284,7 @@ INSERT INTO provider VALUES
 -- Вывод данных для таблицы food
 --
 INSERT INTO food VALUES
-(1, 'Р–Р°СЂРµРЅРЅР°СЏ РєР°СЂС‚РѕС€РєР°', 35, 25, 'C:\\Users\\User\\source\\repos\\Bufet1131Vorobyov\\img\\Baked Potato.png', '+2.5 Рє СЃС‹С‚РѕСЃС‚Рё', 1),
+(1, 'Р–Р°СЂРµРЅРЅР°СЏ РєР°СЂС‚РѕС€РєР°', 40, 25, 'C:\\Users\\User\\source\\repos\\Bufet1131Vorobyov\\img\\Baked Potato.png', '+2.5 Рє СЃС‹С‚РѕСЃС‚Рё', 1),
 (2, 'РўСѓС€С‘РЅС‹Рµ РіСЂРёР±С‹', 30, 35, 'C:\\Users\\User\\source\\repos\\Bufet1131Vorobyov\\img\\Mushroom Stew.png', '', 1),
 (3, 'Р–Р°СЂРµРЅРЅР°СЏ РіРѕРІСЏРґРёРЅР°', 75, 48, 'C:\\Users\\User\\source\\repos\\Bufet1131Vorobyov\\img\\Cooked Beef.png', '', 1),
 (4, 'Р–Р°СЂРµРЅРЅР°СЏ СЃРІРёРЅРёРЅР°', 33, 42, 'C:\\Users\\User\\source\\repos\\Bufet1131Vorobyov\\img\\Cooked Porkchop.png', '', 1),
@@ -300,7 +301,7 @@ INSERT INTO food VALUES
 (20, '', 0, 0, '', '', 0),
 (21, '', 0, 0, '', '', 0),
 (22, 'РўРµСЃС‚ Р‘Р»СЋРґРѕ', 30, 5, '', 'РўРµСЃС‚ Р‘Р»СЋРґРѕ', 0),
-(23, 'РўРµСЃС‚ Р±Р»СЋРґРѕ 2', 25, 10, '', 'РўРµСЃС‚ Р±Р»СЋРґРѕ 2', 1);
+(23, 'РўРµСЃС‚ Р±Р»СЋРґРѕ 2', 90, 10, 'C:\\Users\\AERO\\Desktop\\РЈС‡С‘Р±Р°\\РљСѓСЂСЃРѕРІР°СЏ 2\\Bufet1131VorobyovProga\\img\\Honey Bottle.png', 'РўРµСЃС‚ Р±Р»СЋРґРѕ 2', 1);
 
 -- 
 -- Вывод данных для таблицы staff
@@ -311,7 +312,13 @@ INSERT INTO food VALUES
 -- Вывод данных для таблицы orderfood
 --
 INSERT INTO orderfood VALUES
-(18, -8585965900854775808, 10, 0, 5, 1, 1);
+(18, -8585965900854775808, 5, 125, 5, 1, 1),
+(20, -8585964172854775808, 0, 0, 5, 1, 1),
+(22, -8585963684665024724, 0, 0, 9, 23, 1),
+(23, -8585963684064596721, 0, 0, 9, 23, 1),
+(24, -8585963683448650719, 0, 0, 0, 23, 1),
+(25, -8585963676653964681, 0, 0, 5, 1, 1),
+(26, -8585963676272938680, 0, 0, 0, 1, 1);
 
 -- 
 -- Вывод данных для таблицы idproviderfood
@@ -368,7 +375,8 @@ INSERT INTO accountingprovider VALUES
 (25, 10, -8585965900854775808, 8, 22),
 (27, 10, -8585965900854775808, 9, 23),
 (28, 10, -8585965900854775808, 9, 23),
-(29, 50, -8585965900854775808, 9, 23);
+(29, 50, -8585965900854775808, 9, 23),
+(30, 20, -8585964172854775808, 9, 23);
 
 -- 
 -- Восстановить предыдущий режим SQL (SQL mode)

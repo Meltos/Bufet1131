@@ -23,9 +23,14 @@
             </MenuItem>
         </Menu>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Label Content="Найти"/>
-            <ComboBox SelectedItem="{Binding SelectedFilterProvider}" ItemsSource="{Binding Menus}"/>
-            
+            <Label Content="Поставщик"/>
+            <ComboBox SelectedItem="{Binding SelectedFilterProvider}" ItemsSource="{Binding Roviders}"/>
+            <Label Content="Блюдо"/>
+            <ComboBox SelectedItem="{Binding SelectedFilterFood}"/>
+            <Label Content="От"/>
+            <DatePicker SelectedDate="{Binding FirstFiterDate}"/>
+            <Label Content="До"/>
+            <DatePicker SelectedDate="{Binding SecondFilterDate}"/>
         </StackPanel>
 
         <DataGrid x:Name="dataGrid1" Grid.Row="2" ItemsSource="{Binding Accountings}" SelectedItem="{Binding SelectedAccounting}" AutoGenerateColumns="False">
