@@ -1,0 +1,40 @@
+﻿<Window x:Class="Bufet1131Vorobyov.Otchoty"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bufet1131Vorobyov"
+        mc:Ignorable="d"
+        Title="Отчёты" Height="300" Width="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.1*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Label x:Name="label11" Content="Поставщик"/>
+            <ComboBox x:Name="comboBox11" ItemsSource="{Binding Providers}" SelectedItem="{Binding SelectedProvider}" DisplayMemberPath="Name"/>
+            <Label x:Name="label1" Content="Блюдо" Visibility="Collapsed"/>
+            <ComboBox x:Name="comboBox1" ItemsSource="{Binding ProviderFoods}" SelectedItem="{Binding SelectedFoodProvider}" DisplayMemberPath="Name" Visibility="Collapsed"/>
+            <Label x:Name="label21" Content="Меню" Visibility="Collapsed"/>
+            <ComboBox x:Name="comboBox21" ItemsSource="{Binding Menus}" SelectedItem="{Binding SelectedMenu}" DisplayMemberPath="Name" Visibility="Collapsed"/>
+            <Label x:Name="label22" Content="Блюдо" Visibility="Collapsed"/>
+            <ComboBox x:Name="comboBox22" ItemsSource="{Binding MenuFoods}" SelectedItem="{Binding SelectedFoodMenu}" DisplayMemberPath="Name" Visibility="Collapsed"/>
+            <Label x:Name="label23" Content="Поставщик" Visibility="Collapsed"/>
+            <ComboBox x:Name="comboBox23" ItemsSource="{Binding FoodProviders}" SelectedItem="{Binding SelectedProviderFood}" DisplayMemberPath="Name" Visibility="Collapsed"/>
+            <Button  Content="Выбрать блюдо по меню" Margin="0 10 0 0" Click="Button_Click"/>
+            <Button Content="Выбрать блюдо по поставщику" Margin="0 10 0 0" Visibility="Collapsed" Click="Button_Click_1"/>
+            <Label Content="От"/>
+            <DatePicker SelectedDate="{Binding SelectedStart}"/>
+            <Label Content="До"/>
+            <DatePicker SelectedDate="{Binding SelectedEnd}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <Label Content="Количество доставленных блюд"/>
+            <TextBlock Text="{Binding CountAccounting}"/>
+            <Label Content="Количество заказанных блюд"/>
+            <TextBlock Text="{Binding CountOrder}"/>
+        </StackPanel>
+    </Grid>
+</Window>

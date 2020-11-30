@@ -14,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition />
+            <RowDefinition Height="1.1*" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <Menu Grid.ColumnSpan="3">
@@ -37,13 +37,14 @@
             <TextBox Text="{Binding NameProvider}"/>
             <Label Content="Телефон"/>
             <TextBox Text="{Binding PhoneProvider}"/>
-            <Label Content="Адресс"/>
+            <Label Content="Адрес"/>
             <TextBox Text="{Binding AddressProvider}"/>
             <Label Content="E-mail"/>
             <TextBox Text="{Binding MailProvider}"/>
-            <Label Content="Все блюда"/>
+            <Label Content="Блюда"/>
             <ComboBox ItemsSource="{Binding ProviderFoods}" SelectedItem="{Binding SelectedFood}" DisplayMemberPath="Name"/>
             <Button  Content="Добавить блюдо" Click="Button_Click"/>
+            <Label Content="Блюда, которые этот поставщик доставляет"/>
         </StackPanel>
         <DataGrid Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" AutoGenerateColumns="False" ItemsSource="{Binding Foods}" SelectedItem="{Binding SelectedFoodProvider}">
             <DataGrid.ContextMenu>

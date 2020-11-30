@@ -111,6 +111,9 @@
     <Compile Include="Forms\AddNewOrder.xaml.cs">
       <DependentUpon>AddNewOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Otchoty.xaml.cs">
+      <DependentUpon>Otchoty.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MySql\OrderSql.cs" />
     <Compile Include="MySql\AccountingSql.cs" />
     <Compile Include="Forms\AddFood.xaml.cs">
@@ -174,6 +177,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Forms\Otchoty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\Menu.cs" />

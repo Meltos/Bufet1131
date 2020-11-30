@@ -88,6 +88,7 @@ namespace Bufet1131Vorobyov
             int id = menuSql.AddNewMenu(newmenu);
             newmenu.ID = id;
             Menus.Add(newmenu);
+            MessageBox.Show("Новое меню создано.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
@@ -138,6 +139,7 @@ namespace Bufet1131Vorobyov
                 return;
             MenuSql menuSql = new MenuSql(dB);
             menuSql.PublicMenu(SelectedMenu);
+            MessageBox.Show("Меню опубликовано.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
@@ -146,6 +148,7 @@ namespace Bufet1131Vorobyov
                 return;
             MenuSql menuSql = new MenuSql(dB);
             menuSql.NoPublicMenu(SelectedMenu);
+            MessageBox.Show("Меню распубликовано.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

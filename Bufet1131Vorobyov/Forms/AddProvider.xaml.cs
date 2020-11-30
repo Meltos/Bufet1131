@@ -126,6 +126,7 @@ namespace Bufet1131Vorobyov
             int id = providerSql.AddNewProvider(newprovider);
             newprovider.ID = id;
             Providers.Add(newprovider);
+            MessageBox.Show("Новый поставщик создан.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)

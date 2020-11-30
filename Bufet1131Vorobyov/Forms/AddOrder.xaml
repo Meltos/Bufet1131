@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bufet1131Vorobyov"
         mc:Ignorable="d"
-        Title="Учёт заказов" Height="450" Width="850" WindowStartupLocation="CenterScreen">
+        Title="Учёт заказов блюд" Height="450" Width="850" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition Width="0.4*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -20,9 +21,20 @@
                 <MenuItem Header="Добавить заказ" Click="MenuItem_Click"/>
                 <MenuItem Header="Удалить заказ" Click="MenuItem_Click_1"/>
             </MenuItem>
-            
         </Menu>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Content="Меню"/>
+            <ComboBox SelectedItem="{Binding SelectedFilterMenu}" ItemsSource="{Binding MenusFilter}" DisplayMemberPath="Name"/>
+            <Label x:Name="label1" Content="Блюдо"/>
+            <ComboBox x:Name="comboBox1" SelectedItem="{Binding SelectedFilterFood}" ItemsSource="{Binding FoodsFilter}" DisplayMemberPath="Name"/>
+            <Label x:Name="label2" Content="Поставщик"/>
+            <ComboBox x:Name="comboBox2" SelectedItem="{Binding SelectedFilterProvider}" ItemsSource="{Binding ProvidersFilter}" DisplayMemberPath="Name"/>
+            <Label Content="От"/>
+            <DatePicker SelectedDate="{Binding FirstFilterDate}"/>
+            <Label Content="До"/>
+            <DatePicker SelectedDate="{Binding SecondFilterDate}"/>
+        </StackPanel>
+        <DataGrid Grid.Row="2" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Дата" IsReadOnly="True"
                                     Binding="{Binding  DateTime, StringFormat=d/M/yyyy}" />
@@ -38,7 +50,7 @@
                                     Binding="{Binding Cost}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <StackPanel Grid.Row="1" Grid.Column="1">
+        <StackPanel Grid.Row="2" Grid.Column="1">
             <Label Content="Дата"/>
             <DatePicker SelectedDate="{Binding DateTimeOrder}"/>
             <Label Content="Меню"/>

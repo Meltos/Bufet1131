@@ -90,5 +90,11 @@ namespace Bufet1131Vorobyov
             Foods = null;
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Foods"));
         }
+
+        private void MenuItem_Click_4(object sender, RoutedEventArgs e)
+        {
+            Otchoty otchoty = new Otchoty(dB);
+            otchoty.ShowDialog();
+        }
     }
 }

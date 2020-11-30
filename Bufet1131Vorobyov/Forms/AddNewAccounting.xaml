@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bufet1131Vorobyov"
         mc:Ignorable="d"
-        Title="Поставка" Height="300" Width="300" WindowStartupLocation="CenterScreen">
+        Title="Новая поставка" Height="300" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
             <Label Content="Дата"/>

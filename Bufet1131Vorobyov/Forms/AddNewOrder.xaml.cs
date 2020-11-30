@@ -40,13 +40,16 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedMenu = value;
+                    MenuFoods = null;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MenuFoods"));
+                    Food nullfood = new Food();
+                    SelectedFood = nullfood;
                     label2.Visibility = Visibility.Collapsed;
                     comboBox2.Visibility = Visibility.Collapsed;
                     if (value.Foods.Count <= 0)
                     {
                         label1.Visibility = Visibility.Collapsed;
                         comboBox1.Visibility = Visibility.Collapsed;
-
                     }
                     else
                     {
@@ -66,6 +69,10 @@ namespace Bufet1131Vorobyov
                 if (value != null)
                 {
                     selectedFood = value;
+                    FoodProviders = null;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("FoodProviders"));
+                    Provider nullprovider = new Provider();
+                    SelectedProvider = nullprovider;
                     foreach (var food in Foods)
                     {
                         if (value.ID == food.ID)
@@ -114,9 +121,45 @@ namespace Bufet1131Vorobyov
             {
                 MessageBox.Show("Не выбрано блюдо", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (CountNew < 0)
+            else if (CountNew < 1)
             {
                 MessageBox.Show("Введите количество блюд", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (FoodProviders == null)
+            {
+                NewOrder = new Order();
+                NewOrder.DateTime = DateTimeNew;
+                NewOrder.Menu = SelectedMenu;
+                NewOrder.Food = SelectedFood;
+                Provider provider = new Provider { ID = 0, Name = "", Status = 2 };
+                provider.Foods.Add(NewOrder.Food);
+                NewOrder.Provider = provider;
+                NewOrder.Count = CountNew;
+                NewOrder.Cost = NewOrder.Count * NewOrder.Food.Price;
+                foreach (var food in Foods)
+                {
+                    if (food.ID == NewOrder.Food.ID)
+                    {
+                        FoodSql foodSql = new FoodSql(dB);
+                        int oldfoodcount = food.Count;
+                        food.Count -= NewOrder.Count;
+                        if (food.Count < 0)
+                        {
+                            MessageBox.Show("Количество блюд не может быть отрицательным", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                            food.Count = oldfoodcount;
+                            NewOrder = null;
+                            return;
+                        }
+                        NewOrder.Food.Count -= NewOrder.Count;
+                        foodSql.EditFood(food);
+                        break;
+                    }
+                }
+                Close();
+            }
+            else if (SelectedProvider == null || !FoodProviders.Contains(SelectedProvider))
+            {
+                MessageBox.Show("Не выбран поставщик", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -124,7 +167,7 @@ namespace Bufet1131Vorobyov
                 NewOrder.DateTime = DateTimeNew;
                 NewOrder.Menu = SelectedMenu;
                 NewOrder.Food = SelectedFood;
-                if (SelectedProvider == null)
+                if (FoodProviders.Count < 1)
                 {
                     Provider provider = new Provider { ID = 0, Name = "", Status=2 };
                     provider.Foods.Add(NewOrder.Food);

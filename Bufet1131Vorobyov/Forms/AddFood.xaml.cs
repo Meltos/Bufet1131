@@ -152,6 +152,7 @@ namespace Bufet1131Vorobyov
             int id = foodSql.AddNewFood(newfood);
             newfood.ID = id;
             Foods.Add(newfood);
+            MessageBox.Show("Новое блюдо создано.", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)

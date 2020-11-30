@@ -36,6 +36,10 @@ namespace Bufet1131Vorobyov
             set
             {
                 selectedProvider = value;
+                ProviderFoodsAcc = null;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ProviderFoodsAcc"));
+                Food nullfood = new Food();
+                SelectedProvidersFood = nullfood;
                 if (value.Foods.Count <= 0)
                 {
                     label1.Visibility = Visibility.Collapsed;
@@ -71,11 +75,11 @@ namespace Bufet1131Vorobyov
             {
                 MessageBox.Show("Не выбран поставщик","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (SelectedProvidersFood == null)
+            else if (SelectedProvidersFood == null || !ProviderFoodsAcc.Contains(SelectedProvidersFood))
             {
                 MessageBox.Show("Не выбрано блюдо", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else if (CountNewAcc < 0)
+            else if (CountNewAcc < 1)
             {
                 MessageBox.Show("Введите количество блюд", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }

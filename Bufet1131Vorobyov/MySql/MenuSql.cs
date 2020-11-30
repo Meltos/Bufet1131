@@ -180,5 +180,64 @@ namespace Bufet1131Vorobyov
                 dB.CloseConnection();
             }
         }
+
+        internal ObservableCollection<Menu> GetNullMenuFoods()
+        {
+            ObservableCollection<Menu> result = new ObservableCollection<Menu>();
+            Menu nullmenu = new Menu { ID = 0, Name = "" };
+            Food nullfood = new Food { ID = 0, Name = "" };
+            Provider nullprovider = new Provider { ID = 0, Name = "" };
+            nullfood.Menus.Add(nullmenu);
+            nullfood.Providers.Add(nullprovider);
+            nullmenu.Foods.Add(nullfood);
+            result.Add(nullmenu);
+            string sql = "SELECT id_menu, id_food, m.id as idmenu, m.name AS mname, m.status AS mstatus, f.status as fstatus, f.id as idfood, f.name as fname, count, price, img, description FROM idmenufood i JOIN food f ON i.id_food = f.id JOIN menu m ON i.id_menu = m.id";
+            Menu last = null;
+            int foodid;
+            Dictionary<int, Food> foods = new Dictionary<int, Food>();
+            if (dB.OpenConnection())
+            {
+                using (var mc = new MySqlCommand(sql, dB.connection))
+                {
+                    using (var dr = mc.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            if (last != null && last.ID != dr.GetInt32("idmenu"))
+                                last = null;
+
+                            if (last == null)
+                            {
+                                last = new Menu();
+                                last.ID = dr.GetInt32("idmenu");
+                                last.Name = dr.GetString("mname");
+                                last.Status = dr.GetInt32("mstatus");
+                                Food nullfoodmenu = new Food { ID = 0, Name = "" };
+                                Provider nullproviderfood = new Provider { ID = 0, Name = "" };
+                                nullfoodmenu.Providers.Add(nullproviderfood);
+                                last.Foods.Add(nullfoodmenu);
+                                result.Add(last);
+                            }
+
+                            foodid = dr.GetInt32("id_food");
+                            if (foods.ContainsKey(foodid))
+                            {
+                                last.Foods.Add(foods[foodid]);
+                                foods[foodid].Menus.Add(last);
+                            }
+                            else
+                            {
+                                Food food = new Food { ID = foodid, Name = dr.GetString("fname"), PathIMG = dr.GetString("img"), Count = dr.GetInt32("count"), Description = dr.GetString("description"), Price = dr.GetInt32("price") };
+                                food.Menus.Add(last);
+                                foods.Add(foodid, food);
+                                last.Foods.Add(foods[foodid]);
+                            }
+                        }
+                    }
+                }
+                dB.CloseConnection();
+            }
+            return result;
+        }
     }
 }

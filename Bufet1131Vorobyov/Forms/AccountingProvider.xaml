@@ -23,12 +23,12 @@
             </MenuItem>
         </Menu>
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal">
-            <Label Content="Поставщик"/>
-            <ComboBox SelectedItem="{Binding SelectedFilterProvider}" ItemsSource="{Binding Roviders}"/>
-            <Label Content="Блюдо"/>
-            <ComboBox SelectedItem="{Binding SelectedFilterFood}"/>
+            <Label Content="Выбрать поставщика"/>
+            <ComboBox SelectedItem="{Binding SelectedFilterProvider}" ItemsSource="{Binding ProvidersFilter}" DisplayMemberPath="Name"/>
+            <Label x:Name="label1" Content="Выбрать блюдо"/>
+            <ComboBox x:Name="comboBox1" SelectedItem="{Binding SelectedFilterFood}" ItemsSource="{Binding FoodsFilter}" DisplayMemberPath="Name"/>
             <Label Content="От"/>
-            <DatePicker SelectedDate="{Binding FirstFiterDate}"/>
+            <DatePicker SelectedDate="{Binding FirstFilterDate}"/>
             <Label Content="До"/>
             <DatePicker SelectedDate="{Binding SecondFilterDate}"/>
         </StackPanel>

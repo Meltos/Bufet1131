@@ -14,15 +14,16 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2.5*"/>
         </Grid.ColumnDefinitions>
         <Menu Grid.ColumnSpan="3">
             <MenuItem Header="Редактор">
-                <MenuItem Header="Добавить блюдо" Click="MenuItem_Click_1"/>
-                <MenuItem Header="Составить меню" Click="MenuItem_Click"/>
+                <MenuItem Header="Блюда" Click="MenuItem_Click_1"/>
+                <MenuItem Header="Меню" Click="MenuItem_Click"/>
                 <MenuItem Header="Поставщики" Click="MenuItem_Click_2"/>
             </MenuItem>
             <MenuItem Header="Учёт заказов" Click="MenuItem_Click_3"/>
+            <MenuItem Header="Отчёты" Click="MenuItem_Click_4"/>
         </Menu>
         <StackPanel Grid.Row="1">
             <Label Content="Выбрать меню"/>
